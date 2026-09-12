@@ -295,6 +295,8 @@
             justify-content: space-between;
             align-items: start;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .message-sender {
@@ -306,6 +308,7 @@
         .message-time {
             color: #999;
             font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         .message-contact {
@@ -325,6 +328,8 @@
 
         .contact-detail strong {
             color: #333;
+            display: block;
+            margin-bottom: 0.25rem;
         }
 
         .message-text {
@@ -334,6 +339,11 @@
             margin-bottom: 1rem;
             line-height: 1.6;
             color: #333;
+        }
+
+        .message-text strong {
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .message-actions {
@@ -880,28 +890,37 @@
                 return;
             }
 
-            messagesList.innerHTML = messages.map((msg, index) => `
-                <div class="message-card ${msg.read ? '' : 'unread'}">
-                    <div class="message-header">
-                        <span class="message-sender">👤 ${msg.name}</span>
-                        <span class="message-time">⏰ ${msg.timestamp}</span>
-                    </div>
-                    <div class="message-contact">
-                        <div class="contact-detail">
-                            <strong>📧 Email:</strong><br>${msg.email}
+            messagesList.innerHTML = messages.map((msg, index) => {
+                // Generate stars based on rating
+                const rating = msg.rating || 5;
+                const stars = '⭐'.repeat(rating) + '☆'.repeat(5 - rating);
+                
+                return `
+                    <div class="message-card ${msg.read ? '' : 'unread'}">
+                        <div class="message-header">
+                            <span class="message-sender">👤 ${msg.name || 'Anonymous'}</span>
+                            <span class="message-time">⏰ ${msg.timestamp || 'No date'}</span>
                         </div>
-                        <div class="contact-detail">
-                            <strong>📱 Phone:</strong><br>${msg.phone || 'Not provided'}
+                        <div class="message-contact">
+                            <div class="contact-detail">
+                                <strong>📧 Email:</strong>
+                                ${msg.email || 'Not provided'}
+                            </div>
+                            <div class="contact-detail">
+                                <strong>📱 Phone:</strong>
+                                ${msg.phone || 'Not provided'}
+                            </div>
+                        </div>
+                        <div class="message-text">
+                            <strong>Message:</strong>
+                            ${msg.message || 'No message'}
+                        </div>
+                        <div class="message-actions">
+                            <button class="btn-delete-message" onclick="deleteMessage(${index})">🗑️ Delete</button>
                         </div>
                     </div>
-                    <div class="message-text">
-                        <strong>Message:</strong><br>${msg.message}
-                    </div>
-                    <div class="message-actions">
-                        <button class="btn-delete-message" onclick="deleteMessage(${index})">🗑️ Delete</button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // Delete a message
@@ -1118,7 +1137,7 @@
             });
         });
 
-        console.log('🔐 Admin panel loaded with messages tab');
+        console.log('🔐 Admin panel loaded - Messages showing customer names correctly');
     </script>
 </body>
 </html>
