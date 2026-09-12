@@ -411,6 +411,65 @@
             padding: 1rem;
             border-radius: 5px;
         }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0066ff;
+            box-shadow: 0 0 5px rgba(0, 102, 255, 0.3);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #0066ff, #0052cc);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .section-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+        }
     </style>
 </head>
 <body>
@@ -725,22 +784,13 @@
                 <div class="section-card">
                     <h2>❓ How to Use Admin Panel</h2>
                     <div class="help-content">
-                        <h3>📸 Upload Customer Photos</h3>
-                        <ol>
-                            <li>Go to the <strong>Photos</strong> tab</li>
-                            <li>Enter customer name and upload photo</li>
-                            <li>Select star rating (1-5)</li>
-                            <li>Write their testimonial</li>
-                            <li>Click "Upload & Add Customer"</li>
-                        </ol>
-
                         <h3>📬 View Customer Messages</h3>
                         <ol>
                             <li>Go to the <strong>Messages</strong> tab</li>
                             <li>View all customer messages from your website's contact form</li>
                             <li>See sender name, email, phone, and message text</li>
                             <li>Delete messages after reading</li>
-                            <li>Export messages as backup</li>
+                            <li>Export messages as JSON backup</li>
                         </ol>
 
                         <h3>✏️ Edit Website Content</h3>
@@ -761,40 +811,6 @@
                             <li>Click "Save All Changes"</li>
                             <li>Your gallery will now show the custom sizes! (e.g., "12 oz & 16 oz Available")</li>
                         </ol>
-
-                        <h3>🍓 Manage Flavors</h3>
-                        <ol>
-                            <li>In the Website tab, scroll to "Manage Flavors"</li>
-                            <li>Fill in the flavor details (icon, name, description, tag)</li>
-                            <li>Click "Add Flavor" to add a new one</li>
-                            <li>Click "Delete" on any flavor to remove it</li>
-                            <li>All changes update on your website immediately</li>
-                        </ol>
-
-                        <h3>🔐 Change Password</h3>
-                        <ol>
-                            <li>In the Website tab, scroll to "Security Settings"</li>
-                            <li>Enter your new password (minimum 6 characters)</li>
-                            <li>Confirm the password</li>
-                            <li>Click "Update Password"</li>
-                        </ol>
-
-                        <h3>📝 Important Notes</h3>
-                        <ul>
-                            <li>✅ Photos are stored privately in your browser</li>
-                            <li>✅ Website updates in real-time</li>
-                            <li>✅ All data saved in browser storage</li>
-                            <li>✅ Messages are saved automatically when customers submit them</li>
-                            <li>✅ OZ sizes update dynamically on the gallery</li>
-                            <li>⚠️ Clear browser data will delete everything (use export to backup)</li>
-                            <li>🔐 Remember your new password!</li>
-                        </ul>
-
-                        <h3>💾 Backup Your Data</h3>
-                        <button class="btn-secondary" onclick="exportData()">📥 Export Customer Data</button>
-                        <button class="btn-secondary" onclick="importData()">📤 Import Customer Data</button>
-                        <button class="btn-secondary" onclick="exportMessages()">📥 Export Messages</button>
-                        <button class="btn-secondary" style="background: #ffcccc; color: #8b0000;" onclick="clearAllCustomers()">🗑️ Clear All Customers</button>
                     </div>
                 </div>
             </section>
@@ -802,7 +818,6 @@
 
     </div>
 
-    <script src="admin-script.js"></script>
     <script>
         // Admin password
         let ADMIN_PASSWORD = localStorage.getItem('jks_admin_password') || 'Jyair03062026!01';
@@ -849,7 +864,6 @@
             document.getElementById('passwordLock').classList.add('hidden');
             document.getElementById('adminNav').style.display = 'block';
             document.getElementById('adminContent').style.display = 'block';
-            loadCustomers();
             loadWebsiteContent();
             loadFlavors();
             loadMessages();
@@ -1104,7 +1118,7 @@
             });
         });
 
-        console.log('🔐 Admin panel loaded with OZ size editing');
+        console.log('🔐 Admin panel loaded with messages tab');
     </script>
 </body>
 </html>
