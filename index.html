@@ -199,121 +199,79 @@
                     <div class="social-links">
                         <a id="fbLink" href="#" class="social-icon">📘 Facebook</a>
                         <a id="igLink" href="#" class="social-icon">📷 Instagram</a>
-                        <a id="tkLink" href="#" class="social-icon">▶️ TikTok</a>
+                        <a id="ttLink" href="#" class="social-icon">🎵 TikTok</a>
                     </div>
                 </div>
             </div>
-            <hr>
-            <p class="footer-bottom">&copy; 2026 JK's Fruit Soda. All rights reserved. 🍓</p>
-            <p class="footer-bottom">Made with ❤️ for soda lovers everywhere</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JK's Fruit Soda. All rights reserved. 🍓</p>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="testimonials.js"></script>
     <script>
-        // Load all website content from admin settings
-        function loadWebsiteData() {
-            // Business Info
-            const businessName = localStorage.getItem('jks_business_name') || 'JK\'s Fruit Soda';
-            const businessSlogan = localStorage.getItem('jks_business_slogan') || 'Refresh Your Day!';
-            const businessEmail = localStorage.getItem('jks_business_email') || 'info@jksfruitsoda.com';
-            const businessPhone = localStorage.getItem('jks_business_phone') || '+63 (XXX) XXX-XXXX';
-            const businessAddress = localStorage.getItem('jks_business_address') || 'Available at select locations';
-            const businessHours = localStorage.getItem('jks_business_hours') || 'Mon - Sun: 10 AM - 8 PM';
-            const aboutText = localStorage.getItem('jks_about_text') || 'Crafting premium fruit sodas with natural flavors and quality ingredients since 2024.';
-            
+        // Load dynamic content from admin panel
+        function loadWebsiteContent() {
             // Hero Section
-            const heroTitle = localStorage.getItem('jks_hero_title') || 'Refresh Your Life!';
-            const heroSubtitle = localStorage.getItem('jks_hero_subtitle') || 'Premium Fruit Sodas - Handcrafted with Love';
-            const ctaButton = localStorage.getItem('jks_cta_button') || 'Explore Flavors';
-            
+            document.getElementById('heroTitle').textContent = localStorage.getItem('jks_hero_title') || 'Refresh Your Life!';
+            document.getElementById('heroSubtitle').textContent = localStorage.getItem('jks_hero_subtitle') || 'Premium Fruit Sodas - Handcrafted with Love';
+            document.getElementById('ctaButton').textContent = localStorage.getItem('jks_cta_button') || 'Explore Flavors';
+
+            // Navigation logo
+            document.getElementById('navLogo').textContent = '🍓 ' + (localStorage.getItem('jks_business_name') || 'JK\'s Fruit Soda');
+
             // Pricing
             const mediumPrice = localStorage.getItem('jks_medium_price') || '29';
             const largePrice = localStorage.getItem('jks_large_price') || '39';
             const mediumOz = localStorage.getItem('jks_medium_oz') || '12';
             const largeOz = localStorage.getItem('jks_large_oz') || '16';
-            const addOnPrice = localStorage.getItem('jks_addon_price') || '5';
-            const addOnDescription = localStorage.getItem('jks_addon_description') || 'Makes every sip even more delightful!';
             
-            // Social Media
-            const facebookUrl = localStorage.getItem('jks_facebook_url') || '#';
-            const instagramUrl = localStorage.getItem('jks_instagram_url') || '#';
-            const tiktokUrl = localStorage.getItem('jks_tiktok_url') || '#';
-
-            // Update navigation
-            document.getElementById('navLogo').textContent = '🍓 ' + businessName;
-
-            // Update hero section
-            document.getElementById('heroTitle').textContent = heroTitle;
-            document.getElementById('heroSubtitle').textContent = heroSubtitle;
-            document.getElementById('ctaButton').textContent = ctaButton;
-
-            // Update contact info
-            document.getElementById('locationDisplay').textContent = businessAddress;
-            document.getElementById('phoneDisplay').textContent = businessPhone;
-            document.getElementById('emailDisplay').textContent = businessEmail;
-            document.getElementById('hoursDisplay').textContent = businessHours;
-
-            // Update pricing and sizes
             document.getElementById('mediumSizeDisplay').textContent = mediumOz + ' oz';
             document.getElementById('largeSizeDisplay').textContent = largeOz + ' oz';
             document.getElementById('mediumPriceDisplay').textContent = '₱' + parseFloat(mediumPrice).toFixed(2);
             document.getElementById('largePriceDisplay').textContent = '₱' + parseFloat(largePrice).toFixed(2);
+
+            // Add-on pricing
+            const addOnPrice = localStorage.getItem('jks_addon_price') || '5';
             document.getElementById('addOnPriceDisplay').textContent = '+₱' + parseFloat(addOnPrice).toFixed(2) + '!';
-            document.getElementById('addOnDescriptionDisplay').textContent = addOnDescription;
+            document.getElementById('addOnDescriptionDisplay').textContent = localStorage.getItem('jks_addon_description') || 'Makes every sip even more delightful!';
 
-            // Update about section
-            document.getElementById('aboutDisplay').textContent = aboutText;
+            // Contact info
+            document.getElementById('locationDisplay').textContent = localStorage.getItem('jks_business_address') || 'Available at select locations';
+            document.getElementById('phoneDisplay').textContent = localStorage.getItem('jks_business_phone') || '+1 (555) 123-4567';
+            document.getElementById('emailDisplay').textContent = localStorage.getItem('jks_business_email') || 'info@jksfruitsoda.com';
+            document.getElementById('hoursDisplay').textContent = localStorage.getItem('jks_business_hours') || 'Mon - Sun: 10 AM - 8 PM';
 
-            // Update social media links
-            document.getElementById('fbLink').href = facebookUrl || '#';
-            document.getElementById('igLink').href = instagramUrl || '#';
-            document.getElementById('tkLink').href = tiktokUrl || '#';
+            // About section
+            document.getElementById('aboutDisplay').textContent = localStorage.getItem('jks_about_text') || 'Crafting premium fruit sodas with natural flavors and quality ingredients since 2024.';
+
+            // Social media links
+            const fbUrl = localStorage.getItem('jks_facebook_url');
+            const igUrl = localStorage.getItem('jks_instagram_url');
+            const ttUrl = localStorage.getItem('jks_tiktok_url');
+
+            if (fbUrl) document.getElementById('fbLink').href = fbUrl;
+            if (igUrl) document.getElementById('igLink').href = igUrl;
+            if (ttUrl) document.getElementById('ttLink').href = ttUrl;
 
             // Load flavors
             loadFlavors();
+
+            // Load customers/testimonials
+            loadCustomers();
         }
 
-        // Load and display flavors dynamically
+        // Load and display flavors
         function loadFlavors() {
             const flavors = JSON.parse(localStorage.getItem('jks_flavors') || '[]');
-            const mediumOz = localStorage.getItem('jks_medium_oz') || '12';
-            const largeOz = localStorage.getItem('jks_large_oz') || '16';
-            
-            // Default flavors if none exist
-            const defaultFlavors = [
-                {
-                    icon: '🍏',
-                    name: 'Green Apple',
-                    description: 'Crisp and refreshing with a perfect apple taste. Ideal for those who love a tangy, invigorating flavor.',
-                    tag: 'Crisp & Tangy'
-                },
-                {
-                    icon: '🫐',
-                    name: 'Blueberry',
-                    description: 'Sweet and smooth blueberry goodness. A perfect balance of natural sweetness and berry freshness.',
-                    tag: 'Sweet & Smooth'
-                },
-                {
-                    icon: '🍓',
-                    name: 'Strawberry',
-                    description: 'Classic and vibrant strawberry flavor. Everyone\'s favorite - fresh, fruity, and absolutely delicious.',
-                    tag: 'Classic Favorite'
-                },
-                {
-                    icon: '🧧',
-                    name: 'Lychee',
-                    description: 'Exotic and delightfully unique taste. A sophisticated choice for adventurous soda lovers.',
-                    tag: 'Exotic & Unique'
-                }
-            ];
-
-            const flavorList = flavors.length > 0 ? flavors : defaultFlavors;
-
-            // Update flavor grid
             const flavorGrid = document.getElementById('flavorGrid');
-            flavorGrid.innerHTML = flavorList.map(flavor => `
+
+            if (flavors.length === 0) {
+                flavorGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">Loading default flavors...</p>';
+                return;
+            }
+
+            flavorGrid.innerHTML = flavors.map(flavor => `
                 <div class="flavor-card">
                     <div class="flavor-icon">${flavor.icon}</div>
                     <h3>${flavor.name}</h3>
@@ -321,64 +279,93 @@
                     <span class="flavor-tag">${flavor.tag}</span>
                 </div>
             `).join('');
+        }
 
-            // Update gallery grid with custom OZ sizes
-            const galleryGrid = document.getElementById('galleryGrid');
-            const galleryClasses = ['green-apple', 'blueberry', 'strawberry', 'lychee'];
-            galleryGrid.innerHTML = flavorList.map((flavor, index) => `
-                <div class="gallery-item">
-                    <div class="gallery-image ${galleryClasses[index] || ''}">
-                        <span class="flavor-label">${flavor.icon} ${flavor.name}</span>
-                    </div>
-                    <h3>${flavor.name}</h3>
-                    <p>${mediumOz} oz & ${largeOz} oz Available</p>
-                </div>
-            `).join('');
+        // Load and display customers
+        function loadCustomers() {
+            const customers = JSON.parse(localStorage.getItem('jks_customers') || '[]');
+            const testimonialsGrid = document.getElementById('testimonialsGrid');
+
+            // Keep default testimonials and add customer ones
+            if (customers.length > 0) {
+                const customerHTML = customers.map(customer => {
+                    const stars = '⭐'.repeat(customer.rating) + '☆'.repeat(5 - customer.rating);
+                    return `
+                        <div class="testimonial-card">
+                            <div class="customer-avatar">
+                                ${customer.photo ? `<img src="${customer.photo}" alt="${customer.name}">` : '👤'}
+                            </div>
+                            <div class="stars">${stars}</div>
+                            <p>"${customer.testimonial}"</p>
+                            <h4>${customer.name}</h4>
+                            <span>${customer.status}</span>
+                        </div>
+                    `;
+                }).join('');
+                
+                testimonialsGrid.innerHTML += customerHTML;
+            }
         }
 
         // Handle contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWebsiteContent();
 
-            const name = document.getElementById('senderName').value;
-            const email = document.getElementById('senderEmail').value;
-            const phone = document.getElementById('senderPhone').value;
-            const message = document.getElementById('senderMessage').value;
+            // Set up auto-refresh of content every 2 seconds
+            setInterval(loadWebsiteContent, 2000);
 
-            // Get existing messages
-            let messages = JSON.parse(localStorage.getItem('jks_contact_messages') || '[]');
+            // Contact form handler
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-            // Add new message
-            messages.push({
-                id: Date.now(),
-                name: name,
-                email: email,
-                phone: phone,
-                message: message,
-                timestamp: new Date().toLocaleString(),
-                read: false
-            });
+                    const name = document.getElementById('senderName').value;
+                    const email = document.getElementById('senderEmail').value;
+                    const phone = document.getElementById('senderPhone').value;
+                    const message = document.getElementById('senderMessage').value;
 
-            // Save to localStorage
-            localStorage.setItem('jks_contact_messages', JSON.stringify(messages));
+                    // Create message object
+                    const messageData = {
+                        name: name,
+                        email: email,
+                        phone: phone || 'Not provided',
+                        message: message,
+                        timestamp: new Date().toLocaleString(),
+                        read: false
+                    };
 
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Reset form
-            document.getElementById('contactForm').reset();
+                    // Save to localStorage
+                    let messages = JSON.parse(localStorage.getItem('jks_contact_messages') || '[]');
+                    messages.push(messageData);
+                    localStorage.setItem('jks_contact_messages', JSON.stringify(messages));
 
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
+                    console.log('✅ Message saved:', messageData);
+
+                    // Show success message
+                    const successMsg = document.getElementById('successMessage');
+                    successMsg.style.display = 'block';
+
+                    // Reset form
+                    contactForm.reset();
+
+                    // Hide message after 3 seconds
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 3000);
+                });
+            }
+
+            // CTA button handler
+            const ctaButton = document.getElementById('ctaButton');
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function() {
+                    document.getElementById('flavors').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
         });
 
-        // Load data when page loads
-        window.addEventListener('load', loadWebsiteData);
-
-        // Reload data every 2 seconds to check for updates from admin panel
-        setInterval(loadWebsiteData, 2000);
+        console.log('🍓 Website loaded - Messages will save to admin panel');
     </script>
 </body>
 </html>
