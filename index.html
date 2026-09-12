@@ -120,14 +120,14 @@
             <div class="pricing-grid">
                 <div class="price-card">
                     <h3>Medium</h3>
-                    <p class="size">12 oz</p>
+                    <p class="size" id="mediumSizeDisplay">12 oz</p>
                     <p class="price" id="mediumPriceDisplay">₱29.00</p>
                     <p class="description">Perfect for personal enjoyment</p>
                 </div>
                 <div class="price-card featured">
                     <div class="badge">Most Popular</div>
                     <h3>Large</h3>
-                    <p class="size">16 oz</p>
+                    <p class="size" id="largeSizeDisplay">16 oz</p>
                     <p class="price" id="largePriceDisplay">₱39.00</p>
                     <p class="description">Great for sharing or family</p>
                 </div>
@@ -231,6 +231,8 @@
             // Pricing
             const mediumPrice = localStorage.getItem('jks_medium_price') || '29';
             const largePrice = localStorage.getItem('jks_large_price') || '39';
+            const mediumOz = localStorage.getItem('jks_medium_oz') || '12';
+            const largeOz = localStorage.getItem('jks_large_oz') || '16';
             const addOnPrice = localStorage.getItem('jks_addon_price') || '5';
             const addOnDescription = localStorage.getItem('jks_addon_description') || 'Makes every sip even more delightful!';
             
@@ -253,7 +255,9 @@
             document.getElementById('emailDisplay').textContent = businessEmail;
             document.getElementById('hoursDisplay').textContent = businessHours;
 
-            // Update pricing
+            // Update pricing and sizes
+            document.getElementById('mediumSizeDisplay').textContent = mediumOz + ' oz';
+            document.getElementById('largeSizeDisplay').textContent = largeOz + ' oz';
             document.getElementById('mediumPriceDisplay').textContent = '₱' + parseFloat(mediumPrice).toFixed(2);
             document.getElementById('largePriceDisplay').textContent = '₱' + parseFloat(largePrice).toFixed(2);
             document.getElementById('addOnPriceDisplay').textContent = '+₱' + parseFloat(addOnPrice).toFixed(2) + '!';
@@ -274,6 +278,8 @@
         // Load and display flavors dynamically
         function loadFlavors() {
             const flavors = JSON.parse(localStorage.getItem('jks_flavors') || '[]');
+            const mediumOz = localStorage.getItem('jks_medium_oz') || '12';
+            const largeOz = localStorage.getItem('jks_large_oz') || '16';
             
             // Default flavors if none exist
             const defaultFlavors = [
@@ -316,7 +322,7 @@
                 </div>
             `).join('');
 
-            // Update gallery grid
+            // Update gallery grid with custom OZ sizes
             const galleryGrid = document.getElementById('galleryGrid');
             const galleryClasses = ['green-apple', 'blueberry', 'strawberry', 'lychee'];
             galleryGrid.innerHTML = flavorList.map((flavor, index) => `
@@ -325,7 +331,7 @@
                         <span class="flavor-label">${flavor.icon} ${flavor.name}</span>
                     </div>
                     <h3>${flavor.name}</h3>
-                    <p>12 oz & 16 oz Available</p>
+                    <p>${mediumOz} oz & ${largeOz} oz Available</p>
                 </div>
             `).join('');
         }
