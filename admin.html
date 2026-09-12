@@ -390,6 +390,27 @@
             font-size: 0.85rem;
             margin-left: 0.5rem;
         }
+
+        /* OZ Sizes section */
+        .oz-section {
+            background: #e8f4ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #0066ff;
+        }
+
+        .oz-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .oz-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -588,7 +609,7 @@
                     </div>
 
                     <!-- Pricing -->
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #0066ff;">💰 Pricing</h3>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #0066ff;">💰 Pricing & Sizes</h3>
                     <div class="form-group">
                         <label for="mediumPrice">Medium Size Price:</label>
                         <input type="number" id="mediumPrice" placeholder="₱29" step="0.01">
@@ -597,6 +618,22 @@
                     <div class="form-group">
                         <label for="largePrice">Large Size Price:</label>
                         <input type="number" id="largePrice" placeholder="₱39" step="0.01">
+                    </div>
+
+                    <!-- OZ Sizes -->
+                    <div class="oz-section">
+                        <h4>📏 Product Sizes (OZ)</h4>
+                        <p style="color: #666; margin-bottom: 1rem; font-size: 0.9rem;">Customize your bottle sizes - these will show on the gallery</p>
+                        <div class="oz-grid">
+                            <div class="oz-item">
+                                <label for="mediumOz">Medium Size (oz):</label>
+                                <input type="text" id="mediumOz" placeholder="e.g., 12" required>
+                            </div>
+                            <div class="oz-item">
+                                <label for="largeOz">Large Size (oz):</label>
+                                <input type="text" id="largeOz" placeholder="e.g., 16" required>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -715,6 +752,16 @@
                             <li>Click "Save All Changes" when done</li>
                         </ol>
 
+                        <h3>📏 Edit Product Sizes (OZ)</h3>
+                        <ol>
+                            <li>In the Website tab, find the "Pricing & Sizes" section</li>
+                            <li>Scroll to "📏 Product Sizes (OZ)"</li>
+                            <li>Enter your medium size (e.g., 12 for 12 oz)</li>
+                            <li>Enter your large size (e.g., 16 for 16 oz)</li>
+                            <li>Click "Save All Changes"</li>
+                            <li>Your gallery will now show the custom sizes! (e.g., "12 oz & 16 oz Available")</li>
+                        </ol>
+
                         <h3>🍓 Manage Flavors</h3>
                         <ol>
                             <li>In the Website tab, scroll to "Manage Flavors"</li>
@@ -738,6 +785,7 @@
                             <li>✅ Website updates in real-time</li>
                             <li>✅ All data saved in browser storage</li>
                             <li>✅ Messages are saved automatically when customers submit them</li>
+                            <li>✅ OZ sizes update dynamically on the gallery</li>
                             <li>⚠️ Clear browser data will delete everything (use export to backup)</li>
                             <li>🔐 Remember your new password!</li>
                         </ul>
@@ -944,6 +992,8 @@
             document.getElementById('businessAddress').value = localStorage.getItem('jks_business_address') || '123 Fruit Street, City, Country';
             document.getElementById('mediumPrice').value = localStorage.getItem('jks_medium_price') || '29';
             document.getElementById('largePrice').value = localStorage.getItem('jks_large_price') || '39';
+            document.getElementById('mediumOz').value = localStorage.getItem('jks_medium_oz') || '12';
+            document.getElementById('largeOz').value = localStorage.getItem('jks_large_oz') || '16';
             document.getElementById('addOnPrice').value = localStorage.getItem('jks_addon_price') || '5';
             document.getElementById('businessHours').value = localStorage.getItem('jks_business_hours') || 'Mon - Sun: 10 AM - 8 PM';
             document.getElementById('aboutText').value = localStorage.getItem('jks_about_text') || 'Crafting premium fruit sodas with natural flavors and quality ingredients since 2024.';
@@ -965,6 +1015,8 @@
             localStorage.setItem('jks_business_address', document.getElementById('businessAddress').value);
             localStorage.setItem('jks_medium_price', document.getElementById('mediumPrice').value);
             localStorage.setItem('jks_large_price', document.getElementById('largePrice').value);
+            localStorage.setItem('jks_medium_oz', document.getElementById('mediumOz').value);
+            localStorage.setItem('jks_large_oz', document.getElementById('largeOz').value);
             localStorage.setItem('jks_addon_price', document.getElementById('addOnPrice').value);
             localStorage.setItem('jks_business_hours', document.getElementById('businessHours').value);
             localStorage.setItem('jks_about_text', document.getElementById('aboutText').value);
@@ -1052,7 +1104,7 @@
             });
         });
 
-        console.log('🔐 Admin panel loaded with messages feature');
+        console.log('🔐 Admin panel loaded with OZ size editing');
     </script>
 </body>
 </html>
